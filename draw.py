@@ -1,47 +1,56 @@
 import pygame
 
-X=1000
-Y=1000
-R=0
-G=0
-B=0
-W=1
 
-pygame.init()
-window = pygame.display.set_mode((X, Y))
-white = pygame.Color(255, 255, 255)
-black = pygame.Color(0, 0, 0)
-window.fill(white)
+class PySimpleDraw(object):
+    def __init__(self):
+        self.X = 1000
+        self.Y = 1000
+        self.R = 0
+        self.G = 0
+        self.B = 0
+        self.W = 1
 
-def trX(x):
-    return x+X/2
+        pygame.init()
+        self.window = pygame.display.set_mode((self.X, self.Y))
+        self.white = pygame.Color(255, 255, 255)
+        self.black = pygame.Color(0, 0, 0)
+        self.window.fill(self.white)
 
-def trY(y):
-    return Y/2-y
+    def tr_x(self, x, y):
+        return x + self.X/2
+
+    def tr_y(self, x, y):
+        return self.Y/2 - y
+
+    def draw_line(self, x1, y1, x2, y2, w):
+        pygame.draw.line(self.window, pygame.Color(self.R, self.G, self.B),
+                          (self.tr_x(x1, y1), self.tr_y(x1,y1)), (self.tr_x(x2, y2), self.tr_y(x2, y2)), w)
+
+    def set_color(self, r, g, b):
+        self.R = r
+        self.G = g
+        self.B = b
 
 
+psd = PySimpleDraw()
 
-def l(x1, y1, x2, y2, w=W):
-    pygame.draw.line(window, pygame.Color(R, G, B), (trX(x1), trY(y1)), (trX(x2), trY(y2)), w)
+
+def l(x1, y1, x2, y2, w=psd.W):
+    psd.draw_line(x1, y1, x2, y2, w)
 
 
 def c(r, g, b):
-    global R
-    global G
-    global B
-
-    R = r
-    G = g
-    B = b
+    psd.set_color(r, g, b)
 
 
 execfile("picture.py")
 
 pygame.display.flip()
 
-exit = False
-while not exit:
+do_exit = False
+while not do_exit:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            exit = True
+            do_exit = True
             break
+
