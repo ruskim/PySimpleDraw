@@ -101,10 +101,10 @@ def pristavka(x, y, w, h):
    # c(142,229,238)
     l(x,y+40,x,y+100)
     l(x,y+100,x+130,y+100)
-    r(x+100,y+50)
     l(x-10,y-10,x+100,y-1)
-    r(x+60,y+50)
-    r(x+30,y+50)
+#    r(x+100,y+50)
+#    r(x+60,y+50)
+#    r(x+30,y+50)
 
 #pristavka(0,0,130,40)
 
@@ -114,8 +114,15 @@ def pristavka(x, y, w, h):
 #        c(28,28,28)
 
 
-x=0
+xr = [20, 50, 80]
+yr = [45, 50, 55]
+dxr = [1, -1, 1]
+
 def tick():
-    global x
-    pristavka(x, 0, 130, 40)
-    x = x + 1
+    pristavka(0,0,130,40)
+    for i in range(0,len(xr)):
+        r(xr[i], yr[i])
+        xr[i] = xr[i] + dxr[i]
+        if xr[i] > 100 or xr[i] < 10:
+            dxr[i] = -dxr[i]
+
